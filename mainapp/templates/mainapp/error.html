@@ -1,0 +1,14 @@
+{% extends 'mainapp/base.html' %}
+
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1>The page you requested does not exist.<br/>Click <a href="{% url 'index' %}">here</a> to go back to the home
+        page
+    </h1>
+    {% load static %}
+    <br/>
+    <img src="{% static 'mainapp/images/404.jpeg' %}" width="500">
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{%  extends 'mainapp/base.html'%}
+
+{% block content %}
+
+<div class="container form-group">
+    <br/>
+    <div class="row">
+        <div class="col-lg-8">
+            <h1>Add a new entry</h1>
+        </div>
+        <div class="col=lg-4">
+            <button onclick="window.location='{% url 'index' %}'" class="btn btn-success">Go Back</button>
+        </div>
+    </div>
+
+    <hr/>
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        {{ field.errors }}
+        <label>{{ field.label }}</label>
+        <input placeholder="{{ field.label }}" name="{{ field.name }}" class="form-control"/>
+        <br/>
+        {% endfor%}
+        <br/>
+        <button class="btn btn-success" type="submit">Submit</button>
+    </form>
+</div>
+
+
+{% endblock %}
