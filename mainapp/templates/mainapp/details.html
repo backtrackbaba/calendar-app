@@ -1,0 +1,28 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+
+<div class="container jumbotron text-center">
+    <div class="row">
+        <div class="col-lg-4 mx-auto">
+            <button onclick="window.location='{% url 'index' %}'" class="btn btn-success"><i
+                    class="fas fa-long-arrow-alt-left"></i> Go Back
+            </button>
+        </div>
+        <div class="col-lg-4">
+            <button class="btn btn-primary"><i class="fas fa-edit"></i> Edit</button>
+        </div>
+        <div class="col-lg-4">
+            <button onclick="window.location='{% url 'delete' pk=entry.id %}'" class="btn btn-danger"><i
+                    class="fas fa-trash-alt"></i> Delete
+            </button>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <h1>{{ entry.name }}</h1>
+    <h5>{{ entry.date }}</h5>
+    <p>{{ entry.description }}</p>
+</div>
+
+{% endblock %}
