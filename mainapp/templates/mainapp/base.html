@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% load static %}
     <link rel="stylesheet" href="{% static 'mainapp/css/bootstrap.css' %}"/>
-    <link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}"/>
     <link rel="stylesheet" href="{% static 'mainapp/css/font-awesome-all.css' %}"/>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="{% static 'mainapp/css/style.css' %}"/>
 
 
     <title>Calendar App</title>
@@ -18,5 +18,15 @@
 {% block content %}
 
 {% endblock %}
+
+
+{% include 'mainapp/footer.html' %}
+<script src="{% static 'mainapp/js/calendar.js' %}"></script>
+<script src="{% static 'mainapp/js/jquery.min.js' %}"></script>
+<script>
+    var csrf_token = '{{ csrf_token }}'
+
+
+</script>
 </body>
 </html>

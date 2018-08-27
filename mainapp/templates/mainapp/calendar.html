@@ -1,0 +1,32 @@
+{% extends 'mainapp/base.html' %}
+
+{% block content %}
+<div class="container">
+    <br/>
+    <div class="row">
+        <div class="col-lg-8">
+            <h1>Calendar</h1>
+            {% if request.user.is_authenticated %}
+            <span>Hello, {{ request.user.username }}</span>
+            <a href="/logout">Logout</a>
+
+            {% endif %}
+        </div>
+        <div class="'col-lg-4">
+            <button onclick="window.location='{% url 'add' %}'" class="btn btn-success"><i class="fas fa-plus"></i> Add
+                Entry
+            </button>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+
+        {% for entry in entries %}
+        {% include 'mainapp/_calendar.html' %}
+        {% endfor %}
+
+    </div>
+
+
+</div>
+{% endblock %}

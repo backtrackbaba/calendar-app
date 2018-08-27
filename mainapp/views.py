@@ -1,5 +1,7 @@
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import EntryForm
 from .models import Entry
@@ -9,8 +11,12 @@ from .models import Entry
 
 
 def index(request):
-    entries = Entry.objects.all()
-    return render(request, 'mainapp/index.html', {'entries': entries})
+    return render(request, 'mainapp/index.html')
+
+
+def calendar(request):
+    entries = Entry.objects.filter(author=request.user)
+    return render(request, 'mainapp/calendar.html', {'entries': entries})
 
 
 def details(request, pk):
@@ -38,7 +44,7 @@ def add(request):
                 date=date,
                 description=description
             ).save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/calendar')
         pass
     else:
         form = EntryForm()
@@ -47,12 +53,36 @@ def add(request):
 
 
 def delete(request, pk):
-    try:
-        Entry.objects.get(pk=pk).delete()
-    except:
-        return render(request, 'mainapp/error.html')
-    return HttpResponseRedirect('/')
+    print("Method: ", request.method)
+    if request.method == "GET" or request.method == "DELETE":
+        entry = get_object_or_404(Entry, pk=pk)
+        entry.delete()
+    else:
+        return HttpResponseRedirect('/calendar')
 
 
 def error(request):
     return render(request, 'mainapp/error.html')
+
+
+# def login(request):
+#     return render(request, 'mainapp/registration/login.html')
+#
+#
+# def logout(request):
+#     return render(request, 'mainapp/registration/logout.html')
+
+def signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('/calendar')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'registration/signup.html', {'form': form})

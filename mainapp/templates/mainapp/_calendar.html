@@ -11,6 +11,8 @@
     <button onclick="window.location='{% url 'details' pk=entry.id %}'" type="button" class="btn btn-primary">View
         Details
     </button>
+    <button data-id="{{ entry.id }}" onclick="deleteCalendarEntry(this)" type="button" class="btn btn-primary">Delete
+    </button>
 
     </button>
     </br>
